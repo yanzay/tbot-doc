@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://yanzay.github.io/tbot-doc/getting-started/</loc>
+  </url>
+  
+  <url>
+    <loc>https://yanzay.github.io/tbot-doc/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>https://yanzay.github.io/tbot-doc/docs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://yanzay.github.io/tbot-doc/tags/</loc>
+  </url>
+  
+  <url>
+    <loc>https://yanzay.github.io/tbot-doc/</loc>
+  </url>
+  
+</urlset>

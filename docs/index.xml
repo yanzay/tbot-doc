@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tbot documentation</title>
+    <link>https://yanzay.github.io/tbot-doc/</link>
+    <description>Recent content on tbot documentation</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="https://yanzay.github.io/tbot-doc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Getting Started</title>
+      <link>https://yanzay.github.io/tbot-doc/getting-started/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yanzay.github.io/tbot-doc/getting-started/</guid>
+      <description>Installation go get github.com/yanzay/tbot/v2 Usage Simple usage example:
+package main import ( &amp;#34;log&amp;#34; &amp;#34;os&amp;#34; &amp;#34;time&amp;#34; &amp;#34;github.com/yanzay/tbot/v2&amp;#34; ) func main() { bot := tbot.New(os.Getenv(&amp;#34;TELEGRAM_TOKEN&amp;#34;)) c := bot.Client() bot.HandleMessage(&amp;#34;.*yo.*&amp;#34;, func(m *tbot.Message) { c.SendChatAction(m.Chat.ID, tbot.ActionTyping) time.Sleep(1 * time.Second) c.SendMessage(m.Chat.ID, &amp;#34;hello!&amp;#34;) }) err := bot.Start() if err != nil { log.Fatal(err) } } Examples Please take a look inside examples folder.</description>
+    </item>
+    
+  </channel>
+</rss>

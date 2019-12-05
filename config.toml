@@ -1,0 +1,8 @@
+baseURL = "https://yanzay.github.io/tbot-doc"
+languageCode = "en-us"
+title = "tbot documentation"
+theme = "book"
+publishDir = "docs"
+
+[params]
+BookMenuBundle = "/menu"
