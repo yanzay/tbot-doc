@@ -4,9 +4,11 @@ title = "tbot documentation"
 
 # tbot - Telegram Bot Server
 
+{{< columns >}} <!-- begin columns block -->
+
 <img src="logo.png" srcset="logo@2x.png 2x" alt="logo">
 
-## Features
+<---> <!-- magic sparator, between columns -->
 
 - Full Telegram Bot API **4.4** support
 - **Zero** dependency
@@ -17,4 +19,10 @@ title = "tbot documentation"
 - Support for external logger
 - MIT licensed
 
-{{< button relref="/01-getting-started" >}}Getting started{{< /button >}}
+{{< button relref="/01-quick-start" >}}Getting started{{< /button >}}
+
+{{< /columns >}}
+
+
+
+

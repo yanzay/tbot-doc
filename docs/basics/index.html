@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Basics"><meta property="og:title" content="Basics" />
+<meta property="og:description" content="Telegram Bot Basics Register a Bot TBD
+Interact with Telegram Telegram bots can interact with Telegram servers in two different ways: using long polling or webhooks. In this section we will review both ways and how to implement them in tbot.
+Long polling In long polling setup tbot act as a client, asking to Telegram server for updates and waiting when they&#39;re available. Example scenario in following diagram:
+ sequenceDiagram tbot-Telegram: Hello Telegram, any updates for me?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yanzay.github.io/tbot-doc/basics/" />
+
+<title>Basics | tbot documentation</title>
+<link rel="icon" href="/tbot-doc/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/tbot-doc/book.min.eddc90f1d1267cb826e7cffc53c434e50061c4bfe41146a43670842ce6cb3bf6.css" integrity="sha256-7dyQ8dEmfLgm58/8U8Q05QBhxL/kEUakNnCELObLO/Y=">
+
+
+<script defer src="/tbot-doc/en.search.min.fe5109c1851f7972f890fdda3f65507e1ca30c219486970e84768e0d8a7c9c52.js" integrity="sha256-/lEJwYUfeXL4kP3aP2VQfhyjDCGUhpcOhHaODYp8nFI="></script>
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://yanzay.github.io/tbot-doc"><span>tbot documentation</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+    <ul>
+<li><a href="/tbot-doc/quick-start/">Quick Start</a></li>
+<li><a href="/tbot-doc/basics/"class=active>Basics</a>
+<ul>
+<li><a href="/tbot-doc/basics/#register-a-bot">Register a Bot</a></li>
+<li><a href="/tbot-doc/basics/#interact-with-telegram">Interact with Telegram</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/tbot-doc/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>Basics</strong>
+</header>
+
+      
+<article class="markdown"><h1 id="telegram-bot-basics">Telegram Bot Basics</h1>
+<h2 id="register-a-bot">Register a Bot</h2>
+<p>TBD</p>
+<h2 id="interact-with-telegram">Interact with Telegram</h2>
+<p>Telegram bots can interact with Telegram servers in two different ways: using long polling or webhooks. In this section we will review both ways and how to implement them in tbot.</p>
+<h3 id="long-polling">Long polling</h3>
+<p>In long polling setup tbot act as a client, asking to Telegram server for updates and waiting when they're available. Example scenario in following diagram:</p>
+
+
+<script src="/tbot-doc/mermaid.min.js"></script>
+
+
+
+<p class="mermaid">
+sequenceDiagram
+    tbot->>Telegram: Hello Telegram, any updates for me?
+    Telegram-->>tbot: Yes, here they are!
+
+    tbot->>Telegram: Great! And now?
+    activate Telegram
+    Note right of Telegram: Hm... Wait a min...
+    Telegram-->>tbot: Found one!
+    deactivate Telegram
+</p>
+
+<p>tbot will use long polling by default, when you create new instance of <code>Bot</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">bot</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">token</span>)
+</code></pre></div><p>This kind of setup is really handful during development and for moderate load bots. If your bot is suppose to be highly interactive or be used by a lot of users, the best production grade setup is using webhooks.</p>
+<h3 id="webhooks">Webhooks</h3>
+<p>In the webhooks setup tbot acts like a server, listening for a requests from Telegram with updates.</p>
+<p>It looks like on the following diagram:</p>
+
+
+<p class="mermaid">
+sequenceDiagram
+    tbot->>Telegram: Hi! I'm listening on https://example.com
+    activate Telegram
+    Telegram->>tbot: User is typing!
+    Telegram->>tbot: User sent you a message!
+    Telegram->>tbot: User sent you a picture!
+    Telegram->>tbot: User pressed the button!
+    deactivate Telegram
+</p>
+
+<p>To setup webhook just pass it's configuration on initializing:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">bot</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">token</span>, <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">WithWebhook</span>(<span style="color:#e6db74">&#34;https://example.com&#34;</span>, <span style="color:#e6db74">&#34;:8080&#34;</span>))
+</code></pre></div><p><code>tbot.WithWebhook</code> function takes two parms:</p>
+<ul>
+<li>public URL of web service</li>
+<li>address for server to listen on</li>
+</ul>
+<blockquote class="book-hint warning">
+  <strong>Note:</strong> you need <strong>HTTPS</strong> endpoint with a valid certificate. You may want to use service like LetsEncrypt to get one.
+</blockquote>
+
+</article>
+
+      <div class="book-footer justify-between">
+  
+
+  
+
+  
+
+</div>
+
+      
+    </div>
+
+    
+  
+
+
+
+  </main>
+
+  
+</body>
+
+</html>

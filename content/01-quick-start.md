@@ -1,12 +1,14 @@
 +++
-title = "Getting Started"
+title = "Quick Start"
 weight = 1
 type = "docs"
-slug = "getting-started"
+slug = "quick-start"
 # bookFlatSection: false
 # bookToc: 6
 # bookHidden: false
 +++
+
+# Quick Start
 
 ## Installation
 
@@ -43,7 +45,3 @@ func main() {
 	}
 }
 ```
-
-## Examples
-
-Please take a look inside [examples](https://github.com/yanzay/tbot/tree/master/examples) folder.

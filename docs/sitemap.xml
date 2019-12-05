@@ -3,7 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://yanzay.github.io/tbot-doc/getting-started/</loc>
+    <loc>https://yanzay.github.io/tbot-doc/basics/</loc>
+  </url>
+  
+  <url>
+    <loc>https://yanzay.github.io/tbot-doc/quick-start/</loc>
   </url>
   
   <url>

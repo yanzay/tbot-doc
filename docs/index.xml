@@ -11,13 +11,25 @@
     
     
     <item>
-      <title>Getting Started</title>
-      <link>https://yanzay.github.io/tbot-doc/getting-started/</link>
+      <title>Basics</title>
+      <link>https://yanzay.github.io/tbot-doc/basics/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://yanzay.github.io/tbot-doc/getting-started/</guid>
-      <description>Installation go get github.com/yanzay/tbot/v2 Usage Simple usage example:
-package main import ( &amp;#34;log&amp;#34; &amp;#34;os&amp;#34; &amp;#34;time&amp;#34; &amp;#34;github.com/yanzay/tbot/v2&amp;#34; ) func main() { bot := tbot.New(os.Getenv(&amp;#34;TELEGRAM_TOKEN&amp;#34;)) c := bot.Client() bot.HandleMessage(&amp;#34;.*yo.*&amp;#34;, func(m *tbot.Message) { c.SendChatAction(m.Chat.ID, tbot.ActionTyping) time.Sleep(1 * time.Second) c.SendMessage(m.Chat.ID, &amp;#34;hello!&amp;#34;) }) err := bot.Start() if err != nil { log.Fatal(err) } } Examples Please take a look inside examples folder.</description>
+      <guid>https://yanzay.github.io/tbot-doc/basics/</guid>
+      <description>Telegram Bot Basics Register a Bot TBD
+Interact with Telegram Telegram bots can interact with Telegram servers in two different ways: using long polling or webhooks. In this section we will review both ways and how to implement them in tbot.
+Long polling In long polling setup tbot act as a client, asking to Telegram server for updates and waiting when they&#39;re available. Example scenario in following diagram:
+sequenceDiagram tbot-Telegram: Hello Telegram, any updates for me?</description>
+    </item>
+    
+    <item>
+      <title>Quick Start</title>
+      <link>https://yanzay.github.io/tbot-doc/quick-start/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yanzay.github.io/tbot-doc/quick-start/</guid>
+      <description>Quick Start Installation go get github.com/yanzay/tbot/v2 Usage Simple usage example:
+package main import ( &amp;#34;log&amp;#34; &amp;#34;os&amp;#34; &amp;#34;time&amp;#34; &amp;#34;github.com/yanzay/tbot/v2&amp;#34; ) func main() { bot := tbot.New(os.Getenv(&amp;#34;TELEGRAM_TOKEN&amp;#34;)) c := bot.Client() bot.HandleMessage(&amp;#34;.*yo.*&amp;#34;, func(m *tbot.Message) { c.SendChatAction(m.Chat.ID, tbot.ActionTyping) time.Sleep(1 * time.Second) c.SendMessage(m.Chat.ID, &amp;#34;hello!&amp;#34;) }) err := bot.Start() if err != nil { log.Fatal(err) } } </description>
     </item>
     
   </channel>

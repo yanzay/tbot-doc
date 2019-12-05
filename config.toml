@@ -6,6 +6,7 @@ publishDir = "docs"
 
 [params]
 BookMenuBundle = "/menu"
+BookToC = false
 
 [markup.goldmark.renderer]
 unsafe = true
