@@ -5,10 +5,8 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Basics"><meta property="og:title" content="Basics" />
-<meta property="og:description" content="Telegram Bot Basics Register a Bot TBD
-Interact with Telegram Telegram bots can interact with Telegram servers in two different ways: using long polling or webhooks. In this section we will review both ways and how to implement them in tbot.
-Long polling In long polling setup tbot act as a client, asking to Telegram server for updates and waiting when they&#39;re available. Example scenario in following diagram:
- sequenceDiagram tbot-Telegram: Hello Telegram, any updates for me?" />
+<meta property="og:description" content="Telegram Bot Basics Register a Bot First of all, you need to create a bot in Telegram. There is a special bot for this purpose - @BotFather. Open chat with BotFather and press “Start” to start chat with it. It will show you help message to guide through the steps:
+ Click /newbot link in the help message, or send /newbot message to chat. Then BotFather will ask you for the name of your bot." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://yanzay.github.io/tbot-doc/basics/" />
 
@@ -19,7 +17,7 @@ Long polling In long polling setup tbot act as a client, asking to Telegram serv
 <link rel="stylesheet" href="/tbot-doc/book.min.eddc90f1d1267cb826e7cffc53c434e50061c4bfe41146a43670842ce6cb3bf6.css" integrity="sha256-7dyQ8dEmfLgm58/8U8Q05QBhxL/kEUakNnCELObLO/Y=">
 
 
-<script defer src="/tbot-doc/en.search.min.fe5109c1851f7972f890fdda3f65507e1ca30c219486970e84768e0d8a7c9c52.js" integrity="sha256-/lEJwYUfeXL4kP3aP2VQfhyjDCGUhpcOhHaODYp8nFI="></script>
+<script defer src="/tbot-doc/en.search.min.88203a0d0b589966fd0556a6fc54739acfa223952ac735eac2e9502a6a345aa9.js" integrity="sha256-iCA6DQtYmWb9BVam/FRzms&#43;iI5UqxzXqwulQKmo0Wqk="></script>
 
 <!--
 Made with Book Theme
@@ -56,7 +54,8 @@ https://github.com/alex-shpak/hugo-book
 <li><a href="/tbot-doc/basics/"class=active>Basics</a>
 <ul>
 <li><a href="/tbot-doc/basics/#register-a-bot">Register a Bot</a></li>
-<li><a href="/tbot-doc/basics/#interact-with-telegram">Interact with Telegram</a></li>
+<li><a href="/tbot-doc/basics/#get-updates-from-telegram">Get Updates from Telegram</a></li>
+<li><a href="/tbot-doc/basics/#use-telegram-bots-api-client">Use Telegram Bots API Client</a></li>
 </ul>
 </li>
 </ul>
@@ -91,8 +90,14 @@ https://github.com/alex-shpak/hugo-book
       
 <article class="markdown"><h1 id="telegram-bot-basics">Telegram Bot Basics</h1>
 <h2 id="register-a-bot">Register a Bot</h2>
-<p>TBD</p>
-<h2 id="interact-with-telegram">Interact with Telegram</h2>
+<p>First of all, you need to create a bot in Telegram. There is a special bot for this purpose - <a href="https://t.me/BotFather">@BotFather</a>. Open chat with BotFather and press “Start” to start chat with it. It will show you help message to guide through the steps:</p>
+<ul>
+<li>Click <code>/newbot</code> link in the help message, or send <code>/newbot</code> message to chat.</li>
+<li>Then BotFather will ask you for the name of your bot. You can choose anything you like, for example, MyTest.</li>
+<li>After the name, BotFather will ask for a username of the bot. It must end with “bot”, so users can differentiate it from real people.</li>
+</ul>
+<p>You’re done! BotFather will provide authentication token for the bot, just provide it to tbot on initialization with <code>tbot.New()</code>.</p>
+<h2 id="get-updates-from-telegram">Get Updates from Telegram</h2>
 <p>Telegram bots can interact with Telegram servers in two different ways: using long polling or webhooks. In this section we will review both ways and how to implement them in tbot.</p>
 <h3 id="long-polling">Long polling</h3>
 <p>In long polling setup tbot act as a client, asking to Telegram server for updates and waiting when they're available. Example scenario in following diagram:</p>
@@ -144,6 +149,7 @@ sequenceDiagram
   <strong>Note:</strong> you need <strong>HTTPS</strong> endpoint with a valid certificate. You may want to use service like LetsEncrypt to get one.
 </blockquote>
 
+<h2 id="use-telegram-bots-api-client">Use Telegram Bots API Client</h2>
 </article>
 
       <div class="book-footer justify-between">

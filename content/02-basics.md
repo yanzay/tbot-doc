@@ -3,18 +3,20 @@ title = "Basics"
 weight = 1
 type = "docs"
 slug = "basics"
-# bookFlatSection = false
-# bookToc: 6
-# bookHidden: false
 +++
 
 # Telegram Bot Basics
 
 ## Register a Bot
 
-TBD
+First of all, you need to create a bot in Telegram. There is a special bot for this purpose - [@BotFather](https://t.me/BotFather). Open chat with BotFather and press “Start” to start chat with it. It will show you help message to guide through the steps:
+- Click `/newbot` link in the help message, or send `/newbot` message to chat.
+- Then BotFather will ask you for the name of your bot. You can choose anything you like, for example, MyTest.
+- After the name, BotFather will ask for a username of the bot. It must end with “bot”, so users can differentiate it from real people.
 
-## Interact with Telegram
+You’re done! BotFather will provide authentication token for the bot, just provide it to tbot on initialization with `tbot.New()`.
+
+## Get Updates from Telegram
 
 Telegram bots can interact with Telegram servers in two different ways: using long polling or webhooks. In this section we will review both ways and how to implement them in tbot.
 
@@ -72,3 +74,6 @@ bot := tbot.New(token, tbot.WithWebhook("https://example.com", ":8080"))
 {{< hint warning >}}
 **Note:** you need **HTTPS** endpoint with a valid certificate. You may want to use service like LetsEncrypt to get one.
 {{< /hint >}}
+
+## Use Telegram Bots API Client
+
