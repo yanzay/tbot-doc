@@ -89,3 +89,27 @@ This client provides wrappers for all API methods available on Telegram Bots API
 ```go
 client.SendMessage(chatID, "hello from tbot!")
 ```
+
+## Handling Updates
+
+To handle updates from Telegram tbot use concept of Handlers. Each Handler type corresponds to different event type happening in Telegram, so we can handle it properly. The most popular things that we want to handle are Messages, Callbacks from buttons, Poll updates.
+
+To set handler to bot there are several methods:
+
+### `bot.HandleMessage(pattern string, handler func(*tbot.Message))`
+
+Set handler for messages. Messages may include not only text, but all different kinds of data: Videos, Images, Documents, etc. First parameter is a regular expression to filter only relevant messages, by default its `.*`.
+
+### `bot.HandleChannelPost(handler func(*tbot.Message))`
+
+Similar to previous one, but for handling messages in channels.
+
+### `bot.HandleCallback(handler func(*tbot.CallbackQuery))`
+
+Handle callback queries from Inline buttons.
+
+### `bot.HandlePollUpdate(handler func(*tbot.Poll))`
+
+Handle polls updates, just gets updated poll state.
+
+Full list of supported Handlers you can find in [reference](https://godoc.org/github.com/yanzay/tbot#Server).

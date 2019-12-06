@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Examples"><meta property="og:title" content="Examples" />
+<meta property="og:description" content="Examples Basic package main import ( &#34;log&#34; &#34;os&#34; &#34;github.com/yanzay/tbot/v2&#34; ) func main() { bot := tbot.New(os.Getenv(&#34;TELEGRAM_TOKEN&#34;)) c := bot.Client() bot.HandleMessage(&#34;.*yo.*&#34;, func(m *tbot.Message) { c.SendMessage(m.Chat.ID, &#34;hello!&#34;) }) err := bot.Start() if err != nil { log.Fatal(err) } } Webhook package main import ( &#34;log&#34; &#34;os&#34; &#34;github.com/yanzay/tbot/v2&#34; ) func main() { bot := tbot.New(os.Getenv(&#34;TELEGRAM_TOKEN&#34;), tbot.WithWebhook(&#34;https://test.com&#34;, &#34;:8080&#34;)) c := bot.Client() bot.HandleMessage(&#34;ping&#34;, func(m *tbot.Message) { c.SendMessage(m.Chat.ID, &#34;pong&#34;) }) log.Fatal(bot.Start()) } Cowsay package main import ( &#34;fmt&#34; &#34;os&#34; &#34;strings&#34; &#34;unicode/utf8&#34; &#34;github." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yanzay.github.io/tbot-doc/examples/" />
+
+<title>Examples | tbot documentation</title>
+<link rel="icon" href="/tbot-doc/favicon.png" type="image/x-icon">
+
+
+<link rel="stylesheet" href="/tbot-doc/book.min.eddc90f1d1267cb826e7cffc53c434e50061c4bfe41146a43670842ce6cb3bf6.css" integrity="sha256-7dyQ8dEmfLgm58/8U8Q05QBhxL/kEUakNnCELObLO/Y=">
+
+
+<script defer src="/tbot-doc/en.search.min.8db48d6ec772bfb54013188cb611df18b9bb0c242257dc42716ba92d1648aa8a.js" integrity="sha256-jbSNbsdyv7VAExiMthHfGLm7DCQiV9xCcWupLRZIqoo="></script>
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+</head>
+
+<body>
+  <input type="checkbox" class="hidden" id="menu-control" />
+  <main class="flex container">
+
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://yanzay.github.io/tbot-doc"><span>tbot documentation</span>
+  </a>
+</h2>
+
+
+<div class="book-search">
+  <input type="text" id="book-search-input" placeholder="Search" aria-label="Search" maxlength="64" />
+  <div class="book-search-spinner spinner hidden"></div>
+  <ul id="book-search-results"></ul>
+</div>
+
+
+
+
+
+    <ul>
+<li><a href="/tbot-doc/quick-start/">Quick Start</a></li>
+<li><a href="/tbot-doc/basics/">Basics</a>
+<ul>
+<li><a href="/tbot-doc/basics/#register-a-bot">Register a Bot</a></li>
+<li><a href="/tbot-doc/basics/#get-updates-from-telegram">Get Updates from Telegram</a></li>
+<li><a href="/tbot-doc/basics/#use-telegram-bots-api-client">Use Telegram Bots API Client</a></li>
+<li><a href="/tbot-doc/basics/#handling-updates">Handling Updates</a></li>
+</ul>
+</li>
+<li><a href="/tbot-doc/examples/"class=active>Examples</a>
+<ul>
+<li><a href="/tbot-doc/examples/#basic">Basic</a></li>
+<li><a href="/tbot-doc/examples/#webhook">Webhook</a></li>
+<li><a href="/tbot-doc/examples/#cowsay">Cowsay</a></li>
+<li><a href="/tbot-doc/examples/#middlewares">Middlewares</a></li>
+<li><a href="/tbot-doc/examples/#get-file">Get File</a></li>
+<li><a href="/tbot-doc/examples/#send-image">Send Image</a></li>
+<li><a href="/tbot-doc/examples/#polls">Polls</a></li>
+<li><a href="/tbot-doc/examples/#inline-buttons">Inline Buttons</a></li>
+</ul>
+</li>
+</ul>
+
+
+
+
+
+</nav>
+
+
+<script>
+(function() {
+  var menu = document.querySelector("aside.book-menu nav");
+  addEventListener("beforeunload", function(event) {
+    localStorage.setItem("menu.scrollTop", menu.scrollTop);
+  });
+  menu.scrollTop = localStorage.getItem("menu.scrollTop");
+})();
+</script>
+
+    </aside>
+
+    <div class="book-page">
+      <header class="flex align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/tbot-doc/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>Examples</strong>
+</header>
+
+      
+<article class="markdown"><h1 id="examples">Examples</h1>
+<h2 id="basic">Basic</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;log&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+
+	<span style="color:#e6db74">&#34;github.com/yanzay/tbot/v2&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">bot</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;TELEGRAM_TOKEN&#34;</span>))
+	<span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">Client</span>()
+	<span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">HandleMessage</span>(<span style="color:#e6db74">&#34;.*yo.*&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">Message</span>) {
+		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SendMessage</span>(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Chat</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#e6db74">&#34;hello!&#34;</span>)
+	})
+	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">Start</span>()
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+	}
+}
+</code></pre></div><h2 id="webhook">Webhook</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;log&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+
+	<span style="color:#e6db74">&#34;github.com/yanzay/tbot/v2&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">bot</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;TELEGRAM_TOKEN&#34;</span>),
+		<span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">WithWebhook</span>(<span style="color:#e6db74">&#34;https://test.com&#34;</span>, <span style="color:#e6db74">&#34;:8080&#34;</span>))
+	<span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">Client</span>()
+	<span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">HandleMessage</span>(<span style="color:#e6db74">&#34;ping&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">Message</span>) {
+		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SendMessage</span>(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Chat</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#e6db74">&#34;pong&#34;</span>)
+	})
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">Start</span>())
+}
+</code></pre></div><h2 id="cowsay">Cowsay</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+	<span style="color:#e6db74">&#34;strings&#34;</span>
+	<span style="color:#e6db74">&#34;unicode/utf8&#34;</span>
+
+	<span style="color:#e6db74">&#34;github.com/yanzay/tbot/v2&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">token</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;TELEGRAM_TOKEN&#34;</span>)
+	<span style="color:#a6e22e">bot</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">token</span>)
+	<span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">Client</span>()
+	<span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">HandleMessage</span>(<span style="color:#e6db74">&#34;cowsay .+&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">Message</span>) {
+		<span style="color:#a6e22e">text</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">TrimPrefix</span>(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Text</span>, <span style="color:#e6db74">&#34;cowsay &#34;</span>)
+		<span style="color:#a6e22e">cow</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;```\n%s\n```&#34;</span>, <span style="color:#a6e22e">cowsay</span>(<span style="color:#a6e22e">text</span>))
+		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SendMessage</span>(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Chat</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#a6e22e">cow</span>, <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">OptParseModeMarkdown</span>)
+	})
+	<span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">Start</span>()
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">cowsay</span>(<span style="color:#a6e22e">text</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">string</span> {
+	<span style="color:#a6e22e">lineLen</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">utf8</span>.<span style="color:#a6e22e">RuneCountInString</span>(<span style="color:#a6e22e">text</span>) <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>
+	<span style="color:#a6e22e">topLine</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34; %s &#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Repeat</span>(<span style="color:#e6db74">&#34;_&#34;</span>, <span style="color:#a6e22e">lineLen</span>))
+	<span style="color:#a6e22e">textLine</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;&lt; %s &gt;&#34;</span>, <span style="color:#a6e22e">text</span>)
+	<span style="color:#a6e22e">bottomLine</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34; %s &#34;</span>, <span style="color:#a6e22e">strings</span>.<span style="color:#a6e22e">Repeat</span>(<span style="color:#e6db74">&#34;-&#34;</span>, <span style="color:#a6e22e">lineLen</span>))
+	<span style="color:#a6e22e">cow</span> <span style="color:#f92672">:=</span> <span style="color:#e6db74">`</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">        \   ^__^
+</span><span style="color:#e6db74">         \  (oo)\_______
+</span><span style="color:#e6db74">            (__)\       )\/\
+</span><span style="color:#e6db74">               ||----w |
+</span><span style="color:#e6db74">               ||     ||
+</span><span style="color:#e6db74">	</span><span style="color:#e6db74">`</span>
+	<span style="color:#a6e22e">resp</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%s\n%s\n%s%s&#34;</span>, <span style="color:#a6e22e">topLine</span>, <span style="color:#a6e22e">textLine</span>, <span style="color:#a6e22e">bottomLine</span>, <span style="color:#a6e22e">cow</span>)
+	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">resp</span>
+}
+</code></pre></div><h2 id="middlewares">Middlewares</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;log&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+	<span style="color:#e6db74">&#34;time&#34;</span>
+
+	<span style="color:#e6db74">&#34;github.com/yanzay/tbot/v2&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">stat</span>(<span style="color:#a6e22e">h</span> <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">UpdateHandler</span>) <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">UpdateHandler</span> {
+	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">u</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">Update</span>) {
+		<span style="color:#a6e22e">start</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>()
+		<span style="color:#a6e22e">h</span>(<span style="color:#a6e22e">u</span>)
+		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Handle time: %v&#34;</span>, <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Now</span>().<span style="color:#a6e22e">Sub</span>(<span style="color:#a6e22e">start</span>))
+	}
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">bot</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;TELEGRAM_TOKEN&#34;</span>))
+	<span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">Client</span>()
+	<span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">Use</span>(<span style="color:#a6e22e">stat</span>) <span style="color:#75715e">// add stat middleware to bot
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">HandleMessage</span>(<span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">Message</span>) {
+		<span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SendMessage</span>(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Chat</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#e6db74">&#34;hello!&#34;</span>)
+	})
+	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">Start</span>()
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+	}
+}
+</code></pre></div><h2 id="get-file">Get File</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;io&#34;</span>
+	<span style="color:#e6db74">&#34;log&#34;</span>
+	<span style="color:#e6db74">&#34;net/http&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+
+	<span style="color:#e6db74">&#34;github.com/yanzay/tbot/v2&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">token</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;TELEGRAM_TOKEN&#34;</span>)
+	<span style="color:#a6e22e">bot</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">token</span>)
+	<span style="color:#a6e22e">client</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">Client</span>()
+	<span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">HandleMessage</span>(<span style="color:#e6db74">&#34;&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">Message</span>) {
+		<span style="color:#75715e">// here we check if message contains Document
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// you could also check for other types of files:
+</span><span style="color:#75715e"></span>		<span style="color:#75715e">// Audio, Photo, Video, etc.
+</span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Document</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#a6e22e">doc</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">GetFile</span>(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Document</span>.<span style="color:#a6e22e">FileID</span>)
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+				<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+				<span style="color:#66d9ef">return</span>
+			}
+			<span style="color:#a6e22e">url</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">FileURL</span>(<span style="color:#a6e22e">doc</span>)
+			<span style="color:#a6e22e">resp</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">url</span>)
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+				<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+				<span style="color:#66d9ef">return</span>
+			}
+			<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Body</span>.<span style="color:#a6e22e">Close</span>()
+			<span style="color:#a6e22e">out</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Create</span>(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Document</span>.<span style="color:#a6e22e">FileName</span>)
+			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+				<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+				<span style="color:#66d9ef">return</span>
+			}
+			<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">out</span>.<span style="color:#a6e22e">Close</span>()
+			<span style="color:#a6e22e">io</span>.<span style="color:#a6e22e">Copy</span>(<span style="color:#a6e22e">out</span>, <span style="color:#a6e22e">resp</span>.<span style="color:#a6e22e">Body</span>)
+		}
+	})
+	<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">Start</span>())
+}
+</code></pre></div><h2 id="send-image">Send Image</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;log&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+
+	<span style="color:#e6db74">&#34;github.com/yanzay/tbot/v2&#34;</span>
+)
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">bot</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;TELEGRAM_TOKEN&#34;</span>))
+	<span style="color:#a6e22e">c</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">Client</span>()
+	<span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">HandleMessage</span>(<span style="color:#e6db74">&#34;image&#34;</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">Message</span>) {
+		<span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">c</span>.<span style="color:#a6e22e">SendPhotoFile</span>(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Chat</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#e6db74">&#34;image.png&#34;</span>, <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">OptCaption</span>(<span style="color:#e6db74">&#34;this is image&#34;</span>))
+		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+		}
+	})
+	<span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">Start</span>()
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+		<span style="color:#a6e22e">log</span>.<span style="color:#a6e22e">Fatal</span>(<span style="color:#a6e22e">err</span>)
+	}
+}
+</code></pre></div><h2 id="polls">Polls</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+
+	<span style="color:#e6db74">&#34;github.com/yanzay/tbot/v2&#34;</span>
+)
+
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">client</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">Client</span>
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">bot</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;TELEGRAM_TOKEN&#34;</span>))
+	<span style="color:#a6e22e">client</span> = <span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">Client</span>()
+	<span style="color:#75715e">// listen poll message and send poll
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">HandleMessage</span>(<span style="color:#e6db74">&#34;poll&#34;</span>, <span style="color:#a6e22e">sendPoll</span>)
+	<span style="color:#75715e">// handle poll updates, just print on the screen
+</span><span style="color:#75715e"></span>	<span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">HandlePollUpdate</span>(<span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">Poll</span>) {
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Poll update received:&#34;</span>)
+		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Question</span>)
+		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">opt</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">Options</span> {
+			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">opt</span>.<span style="color:#a6e22e">Text</span>, <span style="color:#a6e22e">opt</span>.<span style="color:#a6e22e">VoterCount</span>)
+		}
+	})
+	<span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">Start</span>()
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">sendPoll</span>(<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">Message</span>) {
+	<span style="color:#a6e22e">options</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">string</span>{
+		<span style="color:#e6db74">&#34;Perfect&#34;</span>,
+		<span style="color:#e6db74">&#34;Good&#34;</span>,
+		<span style="color:#e6db74">&#34;So so&#34;</span>,
+	}
+	<span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">SendPoll</span>(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Chat</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#e6db74">&#34;How are you?&#34;</span>, <span style="color:#a6e22e">options</span>)
+}
+</code></pre></div><h2 id="inline-buttons">Inline Buttons</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+
+<span style="color:#f92672">import</span> (
+	<span style="color:#e6db74">&#34;fmt&#34;</span>
+	<span style="color:#e6db74">&#34;os&#34;</span>
+
+	<span style="color:#e6db74">&#34;github.com/yanzay/tbot/v2&#34;</span>
+)
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">application</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">client</span>  <span style="color:#f92672">*</span><span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">Client</span>
+	<span style="color:#a6e22e">votings</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">voting</span>
+}
+
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">voting</span> <span style="color:#66d9ef">struct</span> {
+	<span style="color:#a6e22e">ups</span>   <span style="color:#66d9ef">int</span>
+	<span style="color:#a6e22e">downs</span> <span style="color:#66d9ef">int</span>
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+	<span style="color:#a6e22e">token</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Getenv</span>(<span style="color:#e6db74">&#34;TELEGRAM_TOKEN&#34;</span>)
+	<span style="color:#a6e22e">bot</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">New</span>(<span style="color:#a6e22e">token</span>)
+	<span style="color:#a6e22e">app</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">application</span>{
+		<span style="color:#a6e22e">votings</span>: make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">voting</span>),
+	}
+	<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">client</span> = <span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">Client</span>()
+	<span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">HandleMessage</span>(<span style="color:#e6db74">&#34;/vote&#34;</span>, <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">votingHandler</span>)
+	<span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">HandleCallback</span>(<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">callbackHandler</span>)
+	<span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">Start</span>()
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">application</span>) <span style="color:#a6e22e">votingHandler</span>(<span style="color:#a6e22e">m</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">Message</span>) {
+	<span style="color:#a6e22e">buttons</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">makeButtons</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>)
+	<span style="color:#a6e22e">msg</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">SendMessage</span>(<span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Chat</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#e6db74">&#34;Please vote&#34;</span>, <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">OptInlineKeyboardMarkup</span>(<span style="color:#a6e22e">buttons</span>))
+	<span style="color:#a6e22e">votingID</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%s:%d&#34;</span>, <span style="color:#a6e22e">m</span>.<span style="color:#a6e22e">Chat</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#a6e22e">msg</span>.<span style="color:#a6e22e">MessageID</span>)
+	<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">votings</span>[<span style="color:#a6e22e">votingID</span>] = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">voting</span>{}
+}
+
+<span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">a</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">application</span>) <span style="color:#a6e22e">callbackHandler</span>(<span style="color:#a6e22e">cq</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">CallbackQuery</span>) {
+	<span style="color:#a6e22e">votingID</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;%s:%d&#34;</span>, <span style="color:#a6e22e">cq</span>.<span style="color:#a6e22e">Message</span>.<span style="color:#a6e22e">Chat</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#a6e22e">cq</span>.<span style="color:#a6e22e">Message</span>.<span style="color:#a6e22e">MessageID</span>)
+	<span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">votings</span>[<span style="color:#a6e22e">votingID</span>]
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">cq</span>.<span style="color:#a6e22e">Data</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;up&#34;</span> {
+		<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">ups</span><span style="color:#f92672">++</span>
+	}
+	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">cq</span>.<span style="color:#a6e22e">Data</span> <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;down&#34;</span> {
+		<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">downs</span><span style="color:#f92672">++</span>
+	}
+	<span style="color:#a6e22e">buttons</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">makeButtons</span>(<span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">ups</span>, <span style="color:#a6e22e">v</span>.<span style="color:#a6e22e">downs</span>)
+	<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">EditMessageReplyMarkup</span>(<span style="color:#a6e22e">cq</span>.<span style="color:#a6e22e">Message</span>.<span style="color:#a6e22e">Chat</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#a6e22e">cq</span>.<span style="color:#a6e22e">Message</span>.<span style="color:#a6e22e">MessageID</span>, <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">OptInlineKeyboardMarkup</span>(<span style="color:#a6e22e">buttons</span>))
+	<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">AnswerCallbackQuery</span>(<span style="color:#a6e22e">cq</span>.<span style="color:#a6e22e">ID</span>, <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">OptText</span>(<span style="color:#e6db74">&#34;OK&#34;</span>))
+}
+
+<span style="color:#66d9ef">func</span> <span style="color:#a6e22e">makeButtons</span>(<span style="color:#a6e22e">ups</span>, <span style="color:#a6e22e">downs</span> <span style="color:#66d9ef">int</span>) <span style="color:#f92672">*</span><span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">InlineKeyboardMarkup</span> {
+	<span style="color:#a6e22e">button1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">InlineKeyboardButton</span>{
+		<span style="color:#a6e22e">Text</span>:         <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;👍 %d&#34;</span>, <span style="color:#a6e22e">ups</span>),
+		<span style="color:#a6e22e">CallbackData</span>: <span style="color:#e6db74">&#34;up&#34;</span>,
+	}
+	<span style="color:#a6e22e">button2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">InlineKeyboardButton</span>{
+		<span style="color:#a6e22e">Text</span>:         <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Sprintf</span>(<span style="color:#e6db74">&#34;👎 %d&#34;</span>, <span style="color:#a6e22e">downs</span>),
+		<span style="color:#a6e22e">CallbackData</span>: <span style="color:#e6db74">&#34;down&#34;</span>,
+	}
+	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">InlineKeyboardMarkup</span>{
+		<span style="color:#a6e22e">InlineKeyboard</span>: [][]<span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">InlineKeyboardButton</span>{
+			[]<span style="color:#a6e22e">tbot</span>.<span style="color:#a6e22e">InlineKeyboardButton</span>{<span style="color:#a6e22e">button1</span>, <span style="color:#a6e22e">button2</span>},
+		},
+	}
+}
+</code></pre></div></article>
+
+      <div class="book-footer justify-between">
+  
+
+  
+
+  
+
+</div>
+
+      
+    </div>
+
+    
+  
+
+
+
+  </main>
+
+  
+</body>
+
+</html>

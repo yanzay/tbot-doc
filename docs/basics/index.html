@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="/tbot-doc/book.min.eddc90f1d1267cb826e7cffc53c434e50061c4bfe41146a43670842ce6cb3bf6.css" integrity="sha256-7dyQ8dEmfLgm58/8U8Q05QBhxL/kEUakNnCELObLO/Y=">
 
 
-<script defer src="/tbot-doc/en.search.min.cda7735fb004a2069213c21d2f8329d7b8b18b7e9e4aac917c0651202ecb0aa0.js" integrity="sha256-zadzX7AEogaSE8IdL4Mp17ixi36eSqyRfAZRIC7LCqA="></script>
+<script defer src="/tbot-doc/en.search.min.8db48d6ec772bfb54013188cb611df18b9bb0c242257dc42716ba92d1648aa8a.js" integrity="sha256-jbSNbsdyv7VAExiMthHfGLm7DCQiV9xCcWupLRZIqoo="></script>
 
 <!--
 Made with Book Theme
@@ -56,6 +56,19 @@ https://github.com/alex-shpak/hugo-book
 <li><a href="/tbot-doc/basics/#register-a-bot">Register a Bot</a></li>
 <li><a href="/tbot-doc/basics/#get-updates-from-telegram">Get Updates from Telegram</a></li>
 <li><a href="/tbot-doc/basics/#use-telegram-bots-api-client">Use Telegram Bots API Client</a></li>
+<li><a href="/tbot-doc/basics/#handling-updates">Handling Updates</a></li>
+</ul>
+</li>
+<li><a href="/tbot-doc/examples/">Examples</a>
+<ul>
+<li><a href="/tbot-doc/examples/#basic">Basic</a></li>
+<li><a href="/tbot-doc/examples/#webhook">Webhook</a></li>
+<li><a href="/tbot-doc/examples/#cowsay">Cowsay</a></li>
+<li><a href="/tbot-doc/examples/#middlewares">Middlewares</a></li>
+<li><a href="/tbot-doc/examples/#get-file">Get File</a></li>
+<li><a href="/tbot-doc/examples/#send-image">Send Image</a></li>
+<li><a href="/tbot-doc/examples/#polls">Polls</a></li>
+<li><a href="/tbot-doc/examples/#inline-buttons">Inline Buttons</a></li>
 </ul>
 </li>
 </ul>
@@ -155,7 +168,19 @@ sequenceDiagram
 <span style="color:#a6e22e">client</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">bot</span>.<span style="color:#a6e22e">Client</span>()
 </code></pre></div><p>This client provides wrappers for all API methods available on Telegram Bots API platform like <code>SendMessage</code>, <code>SendAction</code>, etc.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-go" data-lang="go"><span style="color:#a6e22e">client</span>.<span style="color:#a6e22e">SendMessage</span>(<span style="color:#a6e22e">chatID</span>, <span style="color:#e6db74">&#34;hello from tbot!&#34;</span>)
-</code></pre></div></article>
+</code></pre></div><h2 id="handling-updates">Handling Updates</h2>
+<p>To handle updates from Telegram tbot use concept of Handlers. Each Handler type corresponds to different event type happening in Telegram, so we can handle it properly. The most popular things that we want to handle are Messages, Callbacks from buttons, Poll updates.</p>
+<p>To set handler to bot there are several methods:</p>
+<h3 id="bothandlemessagepattern-string-handler-functbotmessage"><code>bot.HandleMessage(pattern string, handler func(*tbot.Message))</code></h3>
+<p>Set handler for messages. Messages may include not only text, but all different kinds of data: Videos, Images, Documents, etc. First parameter is a regular expression to filter only relevant messages, by default its <code>.*</code>.</p>
+<h3 id="bothandlechannelposthandler-functbotmessage"><code>bot.HandleChannelPost(handler func(*tbot.Message))</code></h3>
+<p>Similar to previous one, but for handling messages in channels.</p>
+<h3 id="bothandlecallbackhandler-functbotcallbackquery"><code>bot.HandleCallback(handler func(*tbot.CallbackQuery))</code></h3>
+<p>Handle callback queries from Inline buttons.</p>
+<h3 id="bothandlepollupdatehandler-functbotpoll"><code>bot.HandlePollUpdate(handler func(*tbot.Poll))</code></h3>
+<p>Handle polls updates, just gets updated poll state.</p>
+<p>Full list of supported Handlers you can find in <a href="https://godoc.org/github.com/yanzay/tbot#Server">reference</a>.</p>
+</article>
 
       <div class="book-footer justify-between">
   

@@ -21,6 +21,15 @@
     </item>
     
     <item>
+      <title>Examples</title>
+      <link>https://yanzay.github.io/tbot-doc/examples/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://yanzay.github.io/tbot-doc/examples/</guid>
+      <description>Examples Basic package main import ( &amp;#34;log&amp;#34; &amp;#34;os&amp;#34; &amp;#34;github.com/yanzay/tbot/v2&amp;#34; ) func main() { bot := tbot.New(os.Getenv(&amp;#34;TELEGRAM_TOKEN&amp;#34;)) c := bot.Client() bot.HandleMessage(&amp;#34;.*yo.*&amp;#34;, func(m *tbot.Message) { c.SendMessage(m.Chat.ID, &amp;#34;hello!&amp;#34;) }) err := bot.Start() if err != nil { log.Fatal(err) } } Webhook package main import ( &amp;#34;log&amp;#34; &amp;#34;os&amp;#34; &amp;#34;github.com/yanzay/tbot/v2&amp;#34; ) func main() { bot := tbot.New(os.Getenv(&amp;#34;TELEGRAM_TOKEN&amp;#34;), tbot.WithWebhook(&amp;#34;https://test.com&amp;#34;, &amp;#34;:8080&amp;#34;)) c := bot.Client() bot.HandleMessage(&amp;#34;ping&amp;#34;, func(m *tbot.Message) { c.SendMessage(m.Chat.ID, &amp;#34;pong&amp;#34;) }) log.Fatal(bot.Start()) } Cowsay package main import ( &amp;#34;fmt&amp;#34; &amp;#34;os&amp;#34; &amp;#34;strings&amp;#34; &amp;#34;unicode/utf8&amp;#34; &amp;#34;github.</description>
+    </item>
+    
+    <item>
       <title>Quick Start</title>
       <link>https://yanzay.github.io/tbot-doc/quick-start/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

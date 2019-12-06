@@ -20,9 +20,7 @@ title = "tbot documentation"
 - MIT licensed
 
 {{< button relref="/01-quick-start" >}}Getting started{{< /button >}}
+{{< button href="https://godoc.org/github.com/yanzay/tbot" >}}Reference{{< /button >}}
+{{< button href="https://github.com/yanzay/tbot" >}}Github{{< /button >}}
 
 {{< /columns >}}
-
-
-
-
