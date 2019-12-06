@@ -77,3 +77,15 @@ bot := tbot.New(token, tbot.WithWebhook("https://example.com", ":8080"))
 
 ## Use Telegram Bots API Client
 
+To send messages, files, buttons, actions to the User we use API client. You can get preconfigured client from bot using `Client()` method:
+
+```go
+bot := tbot.New(token)
+client := bot.Client()
+```
+
+This client provides wrappers for all API methods available on Telegram Bots API platform like `SendMessage`, `SendAction`, etc.
+
+```go
+client.SendMessage(chatID, "hello from tbot!")
+```
